@@ -14,7 +14,7 @@ Usage:
 ```ruby
 
 search = SearchOperators.new query
-search.keyword('user_id') do |val|
+search.operator('user_id', :integer) do |val|
   # this block will be called twice with val being set to '123' and '124'
 end
 
@@ -23,11 +23,6 @@ search.as_array('user_id') do |arr|
 end
 
 
-search.hashtags do |hashtag|
-  # for any word with hashtag this block will be called; hashtag can be anywhere,
-  # even in the middle of the freetext block
-end
-
 search.free_text do |txt|
   # this block is called with the remaining text
 end
@@ -35,5 +30,10 @@ end
 
 This is particular useful for appending search criteria to your rails query ;)
 
-
 You can see all the available methods by reading the tiny source code. :D
+
+Each method supports a 2nd optional parameter indicating the expected format of the field. Valid options are:
+
+* :string (default)
+* :integer
+* rails model (well, anything with `.find` method)
