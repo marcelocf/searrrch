@@ -3,6 +3,7 @@
 # This is indeed simple... I wanted it to be simple... so I made it simple. So.. SIMPLE!
 class SearchOperators
   OPERATOR_EXPRESSION = /(\w+):[\ 　]?([\w\p{Han}\p{Katakana}\p{Hiragana}\p{Hangul}ー,]+|"(?:(?!").)+"|'(?:(?!').).+')/
+  VERSION = "0.0.1"
 
   # iterates over the entire string identifying each of the elements
   # this code only checks for:
@@ -67,6 +68,8 @@ class SearchOperators
         return value
       when :integer
         return value.to_i
+      else
+        return expects.find(value) if defined? expects.find
       end
     end
 end
