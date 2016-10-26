@@ -37,3 +37,21 @@ Each method supports a 2nd optional parameter indicating the expected format of 
 * :string (default)
 * :integer
 * rails model (well, anything with `.find` method)
+
+## Installing
+
+```bash
+gem install search_operators
+```
+
+## Contributing
+
+Contributors are welcome! Do the standard pull request stuff.
+
+This project is setup to support `rvm`, but any system with bundler should work:
+
+```#bash
+gem install bundler
+bundler install
+rake # this run tests
+```
