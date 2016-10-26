@@ -23,7 +23,7 @@ search.as_array('user_id') do |arr|
 end
 
 
-search.free_text do |txt|
+search.freetext do |txt|
   # this block is called with the remaining text
 end
 ```
