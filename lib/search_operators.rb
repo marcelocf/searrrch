@@ -22,7 +22,7 @@ class SearchOperators
 
     offset = 0
     while m = OPERATOR_EXPRESSION.match(query, offset)
-      key = m[1].downcase
+      key = m[1].downcase.to_sym
       value = m[2]
       offset = m.end(2)
       @operators[key] ||= []
@@ -33,8 +33,8 @@ class SearchOperators
 
   # yield the value of the given operator to each of the contained elements.
   def operator(key, expects=:string)
-    return if @operators[key].nil?
-    @operators[key].each do |value|
+    return if @operators[key.to_sym].nil?
+    @operators[key.to_sym].each do |value|
       yield(convert(value, expects))
     end
   end
