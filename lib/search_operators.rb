@@ -32,7 +32,7 @@ class SearchOperators
   end
 
   # yield the value of the given operator to each of the contained elements.
-  def keyword(key, expects=:string)
+  def operator(key, expects=:string)
     return if @operators[key].nil?
     @operators[key].each do |value|
       yield(convert(value, expects))
@@ -42,7 +42,7 @@ class SearchOperators
   # yield the block if there is data in the given block
   def as_array(key, expects=:string)
     res=[]
-    keyword(key, expects) { |v| res << v }
+    operator(key, expects) { |v| res << v }
     yield(res) if res.count > 0
   end
 
