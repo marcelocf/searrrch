@@ -2,6 +2,7 @@
 #
 # This is indeed simple... I wanted it to be simple... so I made it simple. So.. SIMPLE!
 class SearchOperators
+  OPERATOR_EXPRESSION = /(\w+):[\ 　]?([\w\p{Han}\p{Katakana}\p{Hiragana}\p{Hangul}ー,]+|"(?:(?!").)+"|'(?:(?!').).+')/
 
   # iterates over the entire string identifying each of the elements
   # this code only checks for:
@@ -26,21 +27,21 @@ class SearchOperators
       @operators[key] ||= []
       @operators[key] << value
     end
-    @freetext = query[offset, query.length]
+    @freetext = query[offset, query.length].strip
   end
 
   # yield the value of the given operator to each of the contained elements.
   def keyword(key, expects=:string)
-    return if @operator[key].nil?
-    @operator[key].each do |value|
-      yield(convert(value, expects)
+    return if @operators[key].nil?
+    @operators[key].each do |value|
+      yield(convert(value, expects))
     end
   end
 
   # yield the block if there is data in the given block
   def as_array(key, expects=:string)
     res=[]
-    operator(key, expects) { res << & }
+    keyword(key, expects) { |v| res << v }
     yield(res) if res.count > 0
   end
 
@@ -50,7 +51,6 @@ class SearchOperators
 
 
   protected
-    OPERATOR_EXPRESSION = /(\w+):[\ 　]?([\w\p{Han}\p{Katakana}\p{Hiragana}\p{Hangul}ー,]+|"(?:(?!").)+"|'(?(?!').).+')/
     #                      1             2                                                3             4  
     # About this regexp:
     #   1. looks for word character (english word basically, plus _ and numbers - might catch others)
