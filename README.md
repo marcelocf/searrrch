@@ -1,11 +1,11 @@
 # search_operators
-Implements a simple parser for search strings using **key:value** and **#hashtag** syntax.
+Implements a simple parser for search strings using **key:value**.
 
 
 The following search string is supported:
 
 ```
-user_id: 123 user_name: omg user_id: 124 #hashtag free text here
+user_id: 123 user_name: omg user_id: 124 free text here
 ```
 
 
