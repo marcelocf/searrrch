@@ -87,4 +87,24 @@ RSpec.describe 'operators' do
     search = Searrrch.new query
     expect(search.to_array(:operator)).to eq values
   end
+
+  it 'explodes the comma' do
+    query = 'user_id: 1,2,3,4'
+    search = Searrrch.new query, true
+    expect(search.to_array(:user_id, :integer)).to eq [1,2,3,4]
+  end
+
+  it 'uses as_array instead of to_array' do
+    query = 'user_id: 1,2,3,4'
+    search = Searrrch.new query, true
+    search.as_array(:user_id, :integer) do |value|
+      expect(value).to eq [1,2,3,4]
+    end
+
+    search.as_array(:unset_value, :integer) do |value|
+      # this is an error .. meaning if this guy is called, fails!
+      # idk how to do this yet using rspec, so I am using this ugly but effective shortcut
+      expect(0).to eq [1,2,3,4]
+    end
+  end
 end

@@ -12,7 +12,7 @@ class Searrrch
   #      also support ',' for you cool kids that expect something like a "list of ids"
   #   3. and also accept any char if quoted - in which case the same quotation should be quoted as well
 
-  VERSION = '0.0.3'
+  VERSION = '0.0.4'
 
   # iterates over the entire string identifying each of the elements
   # this code only checks for:
@@ -25,7 +25,7 @@ class Searrrch
   # Both key and value must have only the other regular chars.
   #
   # Everything after the last option will be considered free text search
-  def initialize(query)
+  def initialize(query, explode_comma=false)
     query = query.to_s
     @operators = {}
 
@@ -36,7 +36,12 @@ class Searrrch
       value = value[1, value.length - 2] if ["'", '"'].include?(value[0])
       offset = m.end(2)
       @operators[key] ||= []
-      @operators[key] << value
+
+      if explode_comma
+        value.split(',').each{ |v| @operators[key] << v }
+      else
+        @operators[key] << value
+      end
     end
     @freetext = query[offset, query.length].strip
   end
@@ -54,6 +59,13 @@ class Searrrch
     res = []
     each_value(key, expects) { |v| res << v }
     res
+  end
+
+  # Same as to_array, but yield the value of the array to a block if a value is
+  # found
+  def as_array(key, expects = :string)
+    arr =to_array(key, expects)
+    yield arr if arr.length > 0
   end
 
   def freetext(expects = :string)
