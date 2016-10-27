@@ -16,13 +16,16 @@ The user can also put the value between quotes, in which case nested escaped quo
 Usage:
 
 ```ruby
-search = Searrrch.new 'user_id: 123 user_id: 124 free text here'
+search = Searrrch.new 'user_id: 123 user_id: 124 status: new status: closed free text here'
 search.each_value(:user_id, :integer) do |val|
   # this block will be called twice with val being set to '123' and '124'
 end
 
 # this return all values from user_id in an array
 search.to_array(:user_id) 
+
+# next, return [1,2]
+search.to_array(:status, { new: 1, closed: 2 })
 
 # or, if you preffer:
 search.as_array(:user_id) do |user_ids|
@@ -49,6 +52,7 @@ Each method supports a 2nd optional parameter indicating the expected format of 
 
 * :string (default)
 * :integer
+* hash containing translation of the values - if not found return `nil`
 * rails model (well, anything with `.find` method)
 
 ## Installing

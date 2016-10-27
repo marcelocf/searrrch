@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    searrrch (0.0.4)
+    searrrch (0.0.5)
 
 GEM
   remote: https://rubygems.org/

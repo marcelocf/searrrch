@@ -12,7 +12,7 @@ class Searrrch
   #      also support ',' for you cool kids that expect something like a "list of ids"
   #   3. and also accept any char if quoted - in which case the same quotation should be quoted as well
 
-  VERSION = '0.0.4'
+  VERSION = '0.0.5'
 
   # iterates over the entire string identifying each of the elements
   # this code only checks for:
@@ -81,6 +81,11 @@ class Searrrch
       return value
     when :integer
       return value.to_i
+    end
+
+    if expects.is_a?(Hash)
+      return expects[value] if expects.has_key?(value)
+      return expects[value.to_sym] if expects.has_key?(value.to_sym)
     else
       return expects.find(value) if defined? expects.find
     end

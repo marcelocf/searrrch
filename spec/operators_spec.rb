@@ -107,4 +107,11 @@ RSpec.describe 'operators' do
       expect(0).to eq [1,2,3,4]
     end
   end
+
+  it 'uses a translation hash' do
+    query = 'status: new,closed'
+    search = Searrrch.new query, true
+    translation = { new: 1, 'closed' => 2 }
+    expect(search.to_array(:status, translation)).to eq([1,2])
+  end
 end
