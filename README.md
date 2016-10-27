@@ -1,6 +1,6 @@
-# search_operators
-Implements a simple parser for search strings using **key:value**.
-
+# searrch
+Allow you to receive a query string using the syntax similar to gmail's filters
+and parse it without going crazy.
 
 The following search string is supported:
 
@@ -8,24 +8,22 @@ The following search string is supported:
 user_id: 123 user_name: omg user_id: 124 free text here
 ```
 
+The user can also put the value between quotes and escape spaces.
 
 Usage:
 
 ```ruby
 
-search = SearchOperators.new query
-search.operator('user_id', :integer) do |val|
+search = Searrrch.new query
+search.each_value('user_id', :integer) do |val|
   # this block will be called twice with val being set to '123' and '124'
 end
 
-search.as_array('user_id') do |arr|
-  # this block will be called once, with an array of strings ['123', '124']
-end
+# this return all values from user_id in an array
+search.to_array('user_id') 
 
-
-search.freetext do |txt|
-  # this block is called with the remaining text
-end
+# this returns the remaining text
+search.freetext
 ```
 
 This is particular useful for appending search criteria to your rails query ;)
@@ -41,7 +39,7 @@ Each method supports a 2nd optional parameter indicating the expected format of 
 ## Installing
 
 ```bash
-gem install search_operators
+gem install searrrch
 ```
 
 ## Contributing
