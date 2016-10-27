@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'searrrch'
 require 'pp'
 # Tests on the freetext feature
@@ -49,8 +50,8 @@ RSpec.describe 'operators' do
 
   it 'has multiple operators with "' do
     query = 'operator: "123 is lol" otheroperator: "12" operator: "other value"'
-    expectedvalue = "123 is lol"
-    othervalue = "other value"
+    expectedvalue = '123 is lol'
+    othervalue = 'other value'
     search = Searrrch.new query
     search.each_value(:operator) do |value|
       expect(value).to eq expectedvalue
@@ -60,8 +61,8 @@ RSpec.describe 'operators' do
 
   it 'has multiple operators with \'' do
     query = 'operator: \'123 is lol\' otheroperator: \'12\' operator: \'other value\''
-    expectedvalue = "123 is lol"
-    othervalue = "other value"
+    expectedvalue = '123 is lol'
+    othervalue = 'other value'
     search = Searrrch.new query
     search.each_value(:operator) do |value|
       expect(value).to eq expectedvalue

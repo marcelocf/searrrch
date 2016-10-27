@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 # This defines a really simple API for interfacing with search operations.
 #
 # This is indeed simple... I wanted it to be simple... so I made it simple. So.. SIMPLE!
 class Searrrch
   OPERATOR_EXPRESSION = /(\w+):[\ 　]?([\w\p{Han}\p{Katakana}\p{Hiragana}\p{Hangul}ー,]+|(["'])(\\?.)*?\3)/
-  #                      1             2                                                 3   
+  #                      1             2                                                 3
   # About this regexp:
   #   1. looks for word character (english word basically, plus _ and numbers - might catch others)
   #      the : must be right after.. or else fails.... and after : might have one space (en or ja)
@@ -11,17 +12,17 @@ class Searrrch
   #      also support ',' for you cool kids that expect something like a "list of ids"
   #   3. and also accept any char if quoted - in which case the same quotation should be quoted as well
 
-  VERSION = "0.0.2"
+  VERSION = '0.0.2'
 
   # iterates over the entire string identifying each of the elements
   # this code only checks for:
   #   1. simple spaces
   #   2. japanese spaces
   #   3. : char
-  # 
+  #
   # All other chars are treated as normal char.
   #
-  # Both key and value must have only the other regular chars. 
+  # Both key and value must have only the other regular chars.
   #
   # Everything after the last option will be considered free text search
   def initialize(query)
@@ -41,7 +42,7 @@ class Searrrch
   end
 
   # yield the value of the given operator to each of the contained elements.
-  def each_value(key, expects=:string)
+  def each_value(key, expects = :string)
     return if @operators[key.to_sym].nil?
     @operators[key.to_sym].each do |value|
       yield(convert(value, expects))
@@ -49,27 +50,27 @@ class Searrrch
   end
 
   # yield the block if there is data in the given block
-  def to_array(key, expects=:string)
-    res=[]
+  def to_array(key, expects = :string)
+    res = []
     each_value(key, expects) { |v| res << v }
     res
   end
 
-  def freetext(expects=:string)
+  def freetext(expects = :string)
     convert(@freetext, expects)
   end
 
   protected
 
-    def convert(value, expects)
-      value = value.gsub(/\\(.)/, '\1')
-      case expects
-      when :string
-        return value
-      when :integer
-        return value.to_i
-      else
-        return expects.find(value) if defined? expects.find
-      end
+  def convert(value, expects)
+    value = value.gsub(/\\(.)/, '\1')
+    case expects
+    when :string
+      return value
+    when :integer
+      return value.to_i
+    else
+      return expects.find(value) if defined? expects.find
     end
+  end
 end
