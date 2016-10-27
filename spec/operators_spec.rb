@@ -97,15 +97,21 @@ RSpec.describe 'operators' do
   it 'uses as_array instead of to_array' do
     query = 'user_id: 1,2,3,4'
     search = Searrrch.new query, true
+    called = false
     search.as_array(:user_id, :integer) do |value|
       expect(value).to eq [1,2,3,4]
+      called = true
     end
+    expect(called).to eq(true)
 
+    called = false
     search.as_array(:unset_value, :integer) do |value|
       # this is an error .. meaning if this guy is called, fails!
       # idk how to do this yet using rspec, so I am using this ugly but effective shortcut
       expect(0).to eq [1,2,3,4]
+      called = true
     end
+    expect(called).to eq(false)
   end
 
   it 'uses a translation hash' do
