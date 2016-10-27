@@ -16,17 +16,29 @@ The user can also put the value between quotes, in which case nested escaped quo
 Usage:
 
 ```ruby
-
-search = Searrrch.new query
-search.each_value('user_id', :integer) do |val|
+search = Searrrch.new 'user_id: 123 user_id: 124 free text here'
+search.each_value(:user_id, :integer) do |val|
   # this block will be called twice with val being set to '123' and '124'
 end
 
 # this return all values from user_id in an array
-search.to_array('user_id') 
+search.to_array(:user_id) 
+
+# or, if you preffer:
+search.as_array(:user_id) do |user_ids|
+  # this is called once and only if user_id is set
+end
 
 # this returns the remaining text
 search.freetext
+
+
+# as a final note, this also works:
+
+search = Searrrch.new 'user_id: 123,124 free text here', true
+search.each_value(:user_id, :integer) do |val|
+  # the same as previous example; but now every value get cut on ','
+end
 ```
 
 This is particular useful for appending search criteria to your rails query ;)
