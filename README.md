@@ -1,6 +1,7 @@
 # searrch
 
 [![Build Status](https://travis-ci.org/marcelocf/searrrch.svg?branch=master)](https://travis-ci.org/marcelocf/searrrch)
+[![Gem Version](https://badge.fury.io/rb/searrrch.svg)](https://badge.fury.io/rb/searrrch)
 
 Allow you to receive a query string using the syntax similar to gmail's filters
 and parse it without going crazy.
