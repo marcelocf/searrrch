@@ -103,15 +103,7 @@ RSpec.describe 'operators' do
       called = true
     end
     expect(called).to eq(true)
-
-    called = false
-    search.as_array(:unset_value, :integer) do |value|
-      # this is an error .. meaning if this guy is called, fails!
-      # idk how to do this yet using rspec, so I am using this ugly but effective shortcut
-      expect(0).to eq [1,2,3,4]
-      called = true
-    end
-    expect(called).to eq(false)
+    expect { |b| search.as_array(:unset_value, :integer, &b) }.not_to yield_control
   end
 
   it 'uses a translation hash' do
