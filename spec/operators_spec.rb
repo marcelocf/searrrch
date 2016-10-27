@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require 'spec_helper'
-require 'searrrch'
+#
 # Tests on the freetext feature
 RSpec.describe 'operators' do
   it 'only one as string' do
