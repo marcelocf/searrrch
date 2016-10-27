@@ -1,19 +1,19 @@
-require 'search_operators'
+require 'searrrch'
 require 'pp'
 # Tests on the freetext feature
 RSpec.describe 'operators' do
   it 'only one as string' do
     query = 'operator: value'
-    search = SearchOperators.new query
-    search.operator(:operator) do |value|
+    search = Searrrch.new query
+    search.each_value(:operator) do |value|
       expect(value).to eq 'value'
     end
   end
 
   it 'only one as integer' do
     query = 'operator: 123'
-    search = SearchOperators.new query
-    search.operator(:operator, :integer) do |value|
+    search = Searrrch.new query
+    search.each_value(:operator, :integer) do |value|
       expect(value).to eq 123
     end
   end
@@ -25,24 +25,24 @@ RSpec.describe 'operators' do
       end
     end
     query = 'operator: 123'
-    search = SearchOperators.new query
-    search.operator(:operator, FakeModel) do |value|
+    search = Searrrch.new query
+    search.each_value(:operator, FakeModel) do |value|
       expect(value).to eq 'it worked for 123'
     end
   end
 
   it 'has one operator with \'' do
     query = 'operator: \'123 is lol\''
-    search = SearchOperators.new query
-    search.operator(:operator) do |value|
+    search = Searrrch.new query
+    search.each_value(:operator) do |value|
       expect(value).to eq '123 is lol'
     end
   end
 
   it 'has one operator with "' do
     query = 'operator: "123 is lol"'
-    search = SearchOperators.new query
-    search.operator(:operator) do |value|
+    search = Searrrch.new query
+    search.each_value(:operator) do |value|
       expect(value).to eq '123 is lol'
     end
   end
@@ -51,19 +51,29 @@ RSpec.describe 'operators' do
     query = 'operator: "123 is lol" otheroperator: "12" operator: "other value"'
     expectedvalue = "123 is lol"
     othervalue = "other value"
-    search = SearchOperators.new query
-    search.operator(:operator) do |value|
+    search = Searrrch.new query
+    search.each_value(:operator) do |value|
       expect(value).to eq expectedvalue
       expectedvalue = othervalue
     end
+  end
+
+  it 'escaped value for operator' do
+    query = 'operator: 123\ is\ lol otheroperator: \"12\"\ lol operator: other\ value'
+    operator = ['123 is lol', 'other value']
+    otheroperator = ['"12" lol']
+    search = Searrrch.new query
+    # TODO: make this test pass
+    #expect(search.to_array(:operator)).to eq operator
+    #expect(search.to_array(:otheroperator)).to eq otheroperator
   end
 
   it 'has multiple operators with \'' do
     query = 'operator: \'123 is lol\' otheroperator: \'12\' operator: \'other value\''
     expectedvalue = "123 is lol"
     othervalue = "other value"
-    search = SearchOperators.new query
-    search.operator(:operator) do |value|
+    search = Searrrch.new query
+    search.each_value(:operator) do |value|
       expect(value).to eq expectedvalue
       expectedvalue = othervalue
     end
@@ -74,8 +84,8 @@ RSpec.describe 'operators' do
     query = 'operator: \'123 is " lol\' otheroperator: \'12\' operator: "other \' value"'
     expectedvalue = '123 is " lol'
     othervalue = 'other \' value'
-    search = SearchOperators.new query
-    search.operator(:operator) do |value|
+    search = Searrrch.new query
+    search.each_value(:operator) do |value|
       expect(value).to eq expectedvalue
       expectedvalue = othervalue
     end
@@ -85,9 +95,7 @@ RSpec.describe 'operators' do
   it 'has multiple operators with \' and " return as array' do
     query = 'operator: \'123 is " lol\' otheroperator: \'12\' operator: "other \' value"'
     values = ['123 is " lol', 'other \' value']
-    search = SearchOperators.new query
-    search.as_array(:operator) do |value|
-      expect(value).to eq expectedvalues
-    end
+    search = Searrrch.new query
+    expect(search.to_array(:operator)).to eq values
   end
 end

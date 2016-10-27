@@ -2,15 +2,15 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-require 'search_operators'
+require 'searrrch'
 
 Gem::Specification.new do |spec|
-  spec.name          = "search_operators"
-  spec.version       = SearchOperators::VERSION
+  spec.name          = "searrrch"
+  spec.version       = Searrrch::VERSION
   spec.authors       = ["Marcelo Coraça de Freitas"]
   spec.email         = ["marcelo.freitas@finc.com"]
   spec.summary       = %q{Really simple library to parse and handle gmail like parameters - called here 'operators'}
-  spec.homepage      = %q{http://github.com/bruce/keyword_search}
+  spec.homepage      = %q{https://github.com/marcelocf/searrrch}
   spec.license       = "Apache-2.0"
 
   spec.files         = `git ls-files`.split($/)

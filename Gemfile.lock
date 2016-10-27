@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    search_operators (0.0.1)
+    searrrch (0.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -68,7 +68,7 @@ DEPENDENCIES
   guard-rspec
   rake
   rspec (~> 3.5)
-  search_operators!
+  searrrch!
 
 BUNDLED WITH
    1.13.6
