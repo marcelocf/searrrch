@@ -3,16 +3,14 @@
 #
 # This is indeed simple... I wanted it to be simple... so I made it simple. So.. SIMPLE!
 class Searrrch
-  OPERATOR_EXPRESSION = /(\w+):[\ 　]?([\w\p{Han}\p{Katakana}\p{Hiragana}\p{Hangul}ー,]+|(["'])(\\?.)*?\3)/
-  #                      1             2                                                 3
   # About this regexp:
   #   1. looks for word character (english word basically, plus _ and numbers - might catch others)
   #      the : must be right after.. or else fails.... and after : might have one space (en or ja)
   #   2. then look for word characters.. supporting Japanese, Korean, Chinese and latin alphabet plus numbers and such
   #      also support ',' for you cool kids that expect something like a "list of ids"
   #   3. and also accept any char if quoted - in which case the same quotation should be quoted as well
+  OPERATOR_EXPRESSION = /(\w+):[\ 　]?([\w\p{Han}\p{Katakana}\p{Hiragana}\p{Hangul}ー,]+|(["'])(\\?.)*?\3)/
 
-  VERSION = '0.0.5'
 
   # iterates over the entire string identifying each of the elements
   # this code only checks for:
