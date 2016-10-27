@@ -1,6 +1,5 @@
 # frozen_string_literal: true
-require 'spec_helper'
-#
+
 # Tests on the freetext feature
 RSpec.describe 'freetext' do
   it 'only free text' do
