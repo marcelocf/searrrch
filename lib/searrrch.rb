@@ -64,7 +64,7 @@ class Searrrch
   # Same as to_array, but yield the value of the array to a block if a value is
   # found
   def as_array(key, expects = :string)
-    arr =to_array(key, expects)
+    arr = to_array(key, expects)
     yield arr if arr.length > 0
   end
 
