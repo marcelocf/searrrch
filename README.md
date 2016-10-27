@@ -8,7 +8,7 @@ The following search string is supported:
 user_id: 123 user_name: omg user_id: 124 free text here
 ```
 
-The user can also put the value between quotes and escape spaces.
+The user can also put the value between quotes, in which case nested escaped quotes are supported.
 
 Usage:
 
