@@ -58,16 +58,6 @@ RSpec.describe 'operators' do
     end
   end
 
-  it 'escaped value for operator' do
-    query = 'operator: 123\ is\ lol otheroperator: \"12\"\ lol operator: other\ value'
-    operator = ['123 is lol', 'other value']
-    otheroperator = ['"12" lol']
-    search = Searrrch.new query
-    # TODO: make this test pass
-    #expect(search.to_array(:operator)).to eq operator
-    #expect(search.to_array(:otheroperator)).to eq otheroperator
-  end
-
   it 'has multiple operators with \'' do
     query = 'operator: \'123 is lol\' otheroperator: \'12\' operator: \'other value\''
     expectedvalue = "123 is lol"
@@ -79,7 +69,6 @@ RSpec.describe 'operators' do
     end
   end
 
-
   it 'has multiple operators with \' and "' do
     query = 'operator: \'123 is " lol\' otheroperator: \'12\' operator: "other \' value"'
     expectedvalue = '123 is " lol'
@@ -90,7 +79,6 @@ RSpec.describe 'operators' do
       expectedvalue = othervalue
     end
   end
-
 
   it 'has multiple operators with \' and " return as array' do
     query = 'operator: \'123 is " lol\' otheroperator: \'12\' operator: "other \' value"'
