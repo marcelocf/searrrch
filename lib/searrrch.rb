@@ -12,7 +12,7 @@ class Searrrch
   #      also support ',' for you cool kids that expect something like a "list of ids"
   #   3. and also accept any char if quoted - in which case the same quotation should be quoted as well
 
-  VERSION = '0.0.2'
+  VERSION = '0.0.3'
 
   # iterates over the entire string identifying each of the elements
   # this code only checks for:
