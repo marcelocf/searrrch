@@ -1,2 +1,5 @@
 language: ruby
 
+notifications:
+  email:
+    on_sucess: false
