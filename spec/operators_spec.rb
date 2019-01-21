@@ -18,6 +18,12 @@ RSpec.describe 'operators' do
     end
   end
 
+  it 'has text with # ' do
+    query = 'hashtag: #hashtag,#hashtag2'
+    search = Searrrch.new query, true
+    expect(search.to_array(:hashtag)).to eq %w(#hashtag #hashtag2)
+  end
+
   it 'only one as \"rails model\"' do
     module FakeModel
       def self.find(id)
